@@ -46,6 +46,13 @@ app.use(
   })
 );
 
+const sessionOptions = {
+  secret: "any string",
+  resave: false,
+  saveUninitialized: false,
+};
+app.use(session(sessionOptions));
+
 app.use(express.json());
 
 CourseRoutes(app);
