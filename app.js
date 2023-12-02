@@ -6,6 +6,7 @@ import CourseRoutes from "./courses/routes.js";
 import ModuleRoutes from "./modules/routes.js";
 import UserRoutes from "./users/routes.js";
 import "dotenv/config";
+import session from "express-session";
 
 import mongoose from "mongoose";
 mongoose.connect("mongodb://127.0.0.1:27017/kanbas");
@@ -51,6 +52,13 @@ const sessionOptions = {
   resave: false,
   saveUninitialized: false,
 };
+if (process.env.NODE_ENV !== "development") {
+  sessionOptions.proxy = true;
+  sessionOptions.cookie = {
+    sameSite: "none",
+    secure: true,
+  };
+}
 app.use(session(sessionOptions));
 
 app.use(express.json());
