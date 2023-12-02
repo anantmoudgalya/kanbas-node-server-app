@@ -51,17 +51,15 @@ app.use(
 );
 
 const sessionOptions = {
-  secret: "any string",
+  secret: "mySecretString",
   resave: false,
   saveUninitialized: false,
 };
-if (process.env.NODE_ENV !== "development") {
-  sessionOptions.proxy = true;
-  sessionOptions.cookie = {
+sessionOptions.proxy = true;
+sessionOptions.cookie = {
     sameSite: "none",
     secure: true,
-  };
-}
+};
 app.use(session(sessionOptions));
 
 app.use(express.json());
